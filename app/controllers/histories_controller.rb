@@ -1,5 +1,6 @@
 class HistoriesController < ApplicationController
   before_action :set_history, only: [:show, :edit, :update, :destroy]
+  before_action :logged_or_admin?, only: [:edit, :update, :destroy]
 
   # GET /histories
   # GET /histories.json
@@ -25,6 +26,7 @@ class HistoriesController < ApplicationController
   # POST /histories.json
   def create
     @history = History.new(history_params)
+    @history.user = current_user
 
     respond_to do |format|
       if @history.save
@@ -35,6 +37,9 @@ class HistoriesController < ApplicationController
         format.json { render json: @history.errors, status: :unprocessable_entity }
       end
     end
+  end
+  def user_histories
+    @histories = helpers.current_user.histories
   end
 
   # PATCH/PUT /histories/1

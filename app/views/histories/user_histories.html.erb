@@ -1,6 +1,6 @@
 <div class="row">
   <div class="col-xs-8 col-sm-10 col-md-10">
-    <h1>Histories</h1>
+    <h1>Historas de <%= current_user.name %></h1>
   </div>
   <div class="col-xs-4 col-sm-2 col-md-2">
     <%= link_to 'New History', new_history_path, class: "btn btn-info btn-sm" %>
@@ -16,20 +16,9 @@
           <h3><%= history.title %></h3>
           <small><%= time_ago_in_words(history.created_at) %> ago</small>
           <p><%= history.content.truncate(150)  %></p>
-          <% if user_signed_in? %>
-            <%= link_to 'Show', history, class: "btn btn-primary" %>
-            <% if current_user.id == history.user_id || current_user.admin == true %>
-              <%= link_to 'Edit', edit_history_path(history), class: "btn btn-warning" %>
-              <%= link_to 'Destroy', history, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger" %>
-              <% end %>
-          <% else %>
-            <%= link_to 'Show', history, class: "btn btn-primary" %>
-          <% end %>
+          <p><%= link_to 'Show', history, class: "btn btn-primary" %> <%= link_to 'Edit', edit_history_path(history), class: "btn btn-warning" %> <%= link_to 'Destroy', history, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger" %></p>
         </div>
       </div>
     </div>
   <% end %>
 </div>
-
-
-<br>
